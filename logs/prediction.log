@@ -1,0 +1,104 @@
+2025-05-29 14:05:31,225 - Exception on /predict [POST]
+Traceback (most recent call last):
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\main.py", line 27, in predict
+    prediction = predict_spam(message)
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\utils.py", line 11, in predict_spam
+    model, vectorizer = load_model()
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\utils.py", line 5, in load_model
+    with open('app/model/model.pkl', 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'app/model/model.pkl'
+2025-05-29 14:05:31,228 - Exception on /predict [POST]
+Traceback (most recent call last):
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\main.py", line 27, in predict
+    prediction = predict_spam(message)
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\utils.py", line 11, in predict_spam
+    model, vectorizer = load_model()
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\utils.py", line 5, in load_model
+    with open('app/model/model.pkl', 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'app/model/model.pkl'
+2025-05-29 14:12:56,794 - Exception on /predict [POST]
+Traceback (most recent call last):
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\main.py", line 27, in predict
+    prediction = predict_spam(message)
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\utils.py", line 9, in predict_spam
+    model, vectorizer = load_model()
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\utils.py", line 5, in load_model
+    model, vectorizer = pickle.load(f)
+ValueError: too many values to unpack (expected 2)
+2025-05-29 14:12:56,797 - Exception on /predict [POST]
+Traceback (most recent call last):
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\main.py", line 27, in predict
+    prediction = predict_spam(message)
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\utils.py", line 9, in predict_spam
+    model, vectorizer = load_model()
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\utils.py", line 5, in load_model
+    model, vectorizer = pickle.load(f)
+ValueError: too many values to unpack (expected 2)
+2025-05-29 14:18:04,519 - Exception on /predict [POST]
+Traceback (most recent call last):
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\main.py", line 27, in predict
+    prediction = predict_spam(message)
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\utils.py", line 9, in predict_spam
+    model, vectorizer = load_model()
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\utils.py", line 4, in load_model
+    with open('app/model/model.pkl', 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'app/model/model.pkl'
+2025-05-29 14:18:04,523 - Exception on /predict [POST]
+Traceback (most recent call last):
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\rjtdu\anaconda3\envs\Deakin\lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\main.py", line 27, in predict
+    prediction = predict_spam(message)
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\utils.py", line 9, in predict_spam
+    model, vectorizer = load_model()
+  File "C:\Users\rjtdu\Downloads\Documents\SIT753\Task7.3HD\spam-detector\app\api\utils.py", line 4, in load_model
+    with open('app/model/model.pkl', 'rb') as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'app/model/model.pkl'
+2025-05-29 14:33:08,924 - Prediction: not spam | Message: Hi, shall we meet tomorrow?
+2025-05-29 14:33:08,928 - Prediction: spam | Message: Win a $1000 gift card now!
