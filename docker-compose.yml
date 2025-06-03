@@ -6,12 +6,16 @@ services:
     container_name: spam-detector-test
     ports:
       - "5000:5000"
+    networks:
+      - jenkins
 
   spam-detector-prod:
     image: spam-detector-app
     container_name: spam-detector-prod
     ports:
       - "5050:5000"
+    networks:
+      - jenkins
 
   prometheus:
     image: prom/prometheus
@@ -20,3 +24,9 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus:/etc/prometheus
+    networks:
+      - jenkins
+
+networks:
+  default:
+    external: true
