@@ -60,6 +60,7 @@ pipeline {
         stage('Deploy to Test Environment') {
             steps {
                 sh '''
+                    docker rm -f spam-detector-test || true
                     docker compose down || true
                     docker compose up -d
                 '''
