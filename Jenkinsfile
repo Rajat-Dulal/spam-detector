@@ -90,7 +90,7 @@ pipeline {
 
                     for (int i = 0; i < maxRetries; i++) {
                         def statusCode = sh(
-                            script: 'curl -s -o /dev/null -w "%{http_code}" http://spam-detector-prod:5000/health || echo "fail"',
+                            script: 'curl -s -o /dev/null -w "%{http_code}" http://localhost:5050/health || echo "fail"',
                             returnStdout: true
                         ).trim()
 
@@ -107,12 +107,11 @@ pipeline {
                     }
 
                     if (!isReady) {
-                        error("❌ ALERT: App not responding on /health after ${maxRetries} attempts.")
+                        error("❌ ALERT: App not responding on http://localhost:5050/health after ${maxRetries} attempts.")
                     }
                 }
             }
         }
-
 
         stage('List Docker Images') {
             steps {
