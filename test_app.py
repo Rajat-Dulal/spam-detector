@@ -1,8 +1,10 @@
 import json
 from app import app
 
-def test_prediction():
+def test_spam_prediction():
     client = app.test_client()
-    response = client.post('/predict', json={'text': 'Congratulations! You won a prize!'})
+    response = client.post('/predict', json={'text': 'Win money now!'})
     assert response.status_code == 200
-    assert 'prediction' in response.get_json()
+    data = response.get_json()
+    assert 'prediction' in data
+    assert data['prediction'] in ['spam', 'not spam']
