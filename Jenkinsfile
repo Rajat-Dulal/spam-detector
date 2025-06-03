@@ -60,8 +60,8 @@ pipeline {
         stage('Deploy to Test Environment') {
             steps {
                 sh '''
-                    docker rm -f spam-detector-test || true
-                    docker run -d --name spam-detector-test -p 5000:5000 spam-detector-app
+                    docker-compose down || true
+                    docker-compose up -d
                 '''
             }
         }
