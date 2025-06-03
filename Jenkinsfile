@@ -76,6 +76,22 @@ pipeline {
             }
         }
 
+        stage('Monitoring & Alerting') {
+            steps {
+                script {
+                    def health = sh(script: 'curl -s -o /dev/null -w "%{http_code}" http://localhost:5050/health', returnStdout: true).trim()
+                    def metrics = sh(script: 'curl -s -o /dev/null -w "%{http_code}" http://localhost:5050/metrics', returnStdout: true).trim()
+
+                    if (health != "200" || metrics != "200") {
+                        error "ALERT: App in production is not healthy or metrics unavailable!"
+                    } else {
+                        echo "App is healthy (200 OK) and metrics available."
+                    }
+                }
+            }
+        }
+
+
         stage('List Docker Images') {
             steps {
                 sh 'docker images'
