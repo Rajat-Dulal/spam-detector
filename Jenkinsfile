@@ -81,20 +81,26 @@ pipeline {
             steps {
                 script {
                     def isReady = false
-                    for (int i = 0; i < 5; i++) {
-                        def status = sh(script: 'curl -s -o /dev/null -w "%{http_code}" http://localhost:5050/health', returnStdout: true).trim()
-                        if (status == "200") {
-                            isReady = true
+                    int maxRetries = 5
+
+                    for (int i = 0; i < maxRetries; i++) {
+                        def result = sh(
+                            script: 'curl -s -o /dev/null -w "%{http_code}" http://localhost:5050/health || echo 000',
+                            returnStdout: true
+                        ).trim()
+
+                        if (result == "200") {
                             echo "✅ App is healthy (HTTP 200)"
+                            isReady = true
                             break
                         } else {
-                            echo "Waiting for app to become ready (attempt ${i + 1})"
-                            sleep 5
+                            echo "❌ App not ready yet (status: ${result}), retrying (${i + 1}/$maxRetries)..."
+                            sleep time: 5, unit: 'SECONDS'
                         }
                     }
 
                     if (!isReady) {
-                        error("❌ ALERT: App in production not responding on /health!")
+                        error("❌ ALERT: App is not responding on /health after ${maxRetries} attempts.")
                     }
                 }
             }
