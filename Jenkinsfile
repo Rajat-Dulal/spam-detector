@@ -43,6 +43,19 @@ pipeline {
             }
         }
 
+        stage('Security Scan (Bandit)') {
+            steps {
+                script {
+                    docker.image(IMAGE_NAME).inside {
+                        sh '''
+                            bandit -r . -f json -o bandit-report.json || true
+                            cat bandit-report.json
+                        '''
+                    }
+                }
+            }
+        }
+
         stage('List Docker Images') {
             steps {
                 sh 'docker images'
