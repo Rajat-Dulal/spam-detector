@@ -77,7 +77,7 @@ pipeline {
             steps {
                 sh '''
                     docker rm -f spam-detector-prod || true
-                    docker run -d --name spam-detector-prod -p 5050:5000 spam-detector-app
+                    docker run -d --name spam-detector-prod --network jenkins -p 5050:5000 spam-detector-app
                 '''
             }
         }
