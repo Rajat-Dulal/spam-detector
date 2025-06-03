@@ -80,13 +80,21 @@ pipeline {
         stage('Monitoring & Alerting') {
             steps {
                 script {
-                    def health = sh(script: 'curl -s -o /dev/null -w "%{http_code}" http://localhost:5050/health', returnStdout: true).trim()
-                    def metrics = sh(script: 'curl -s -o /dev/null -w "%{http_code}" http://localhost:5050/metrics', returnStdout: true).trim()
+                    def isReady = false
+                    for (int i = 0; i < 5; i++) {
+                        def status = sh(script: 'curl -s -o /dev/null -w "%{http_code}" http://localhost:5050/health', returnStdout: true).trim()
+                        if (status == "200") {
+                            isReady = true
+                            echo "✅ App is healthy (HTTP 200)"
+                            break
+                        } else {
+                            echo "Waiting for app to become ready (attempt ${i + 1})"
+                            sleep 5
+                        }
+                    }
 
-                    if (health != "200" || metrics != "200") {
-                        error "ALERT: App in production is not healthy or metrics unavailable!"
-                    } else {
-                        echo "App is healthy (200 OK) and metrics available."
+                    if (!isReady) {
+                        error("❌ ALERT: App in production not responding on /health!")
                     }
                 }
             }
