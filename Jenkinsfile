@@ -59,12 +59,17 @@ pipeline {
 
         stage('Deploy to Test Environment') {
             steps {
+                script {
+                    echo "✅ Using working directory: ${env.WORKSPACE}"
+                }
+                dir("${env.WORKSPACE}") {
                 sh '''
                     docker rm -f spam-detector-prod || true
                     docker rm -f spam-detector-test || true
                     docker compose down || true
                     docker compose up -d
                 '''
+                }
             }
         }
         
