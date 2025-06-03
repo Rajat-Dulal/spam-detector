@@ -17,4 +17,3 @@ EXPOSE 5000
 CMD ["python", "app.py"]
 
 
-VOLUME /app/app.log
