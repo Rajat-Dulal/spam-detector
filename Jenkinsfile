@@ -16,10 +16,13 @@ pipeline {
 
         stage('Run Unit Tests') {
             steps {
-                sh '''
-                    pip install -r requirements.txt
-                    pytest --junitxml=results.xml || true
-                '''
+                script {
+                    docker.image(IMAGE_NAME).inside {
+                        sh '''
+                            pytest --junitxml=results.xml || true
+                        '''
+                    }
+                }
             }
         }
 
