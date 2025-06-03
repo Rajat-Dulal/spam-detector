@@ -52,7 +52,17 @@ pipeline {
                             cat bandit-report.json
                         '''
                     }
+                    archiveArtifacts artifacts: 'bandit-report.json', fingerprint: true
                 }
+            }
+        }
+
+        stage('Deploy to Test Environment') {
+            steps {
+                sh '''
+                    docker rm -f spam-detector-test || true
+                    docker run -d --name spam-detector-test -p 5000:5000 spam-detector-app
+                '''
             }
         }
 
