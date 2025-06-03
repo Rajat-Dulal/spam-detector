@@ -5,6 +5,10 @@ pipeline {
         IMAGE_NAME = 'spam-detector-app'
     }
 
+    tools {
+        sonarQube 'SonarScanner'  // Name from Jenkins Global Tool Config
+    }
+
     stages {
         stage('Build Docker Image') {
             steps {
@@ -29,6 +33,17 @@ pipeline {
         stage('Publish Test Results') {
             steps {
                 junit 'results.xml'
+            }
+        }
+
+        stage('Code Quality (SonarQube)') {
+            environment {
+                SONAR_USER_HOME = "${env.WORKSPACE}/.sonar" // prevent issues with permissions
+            }
+            steps {
+                withSonarQubeEnv('LocalSonar') {
+                    sh '/opt/sonar-scanner/bin/sonar-scanner'
+                }
             }
         }
 
