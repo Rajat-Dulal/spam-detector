@@ -60,8 +60,8 @@ pipeline {
         stage('Deploy to Test Environment') {
             steps {
                 sh '''
-                    docker-compose down || true
-                    docker-compose up -d
+                    docker compose down || true
+                    docker compose up -d
                 '''
             }
         }
