@@ -82,39 +82,57 @@ pipeline {
             }
         }
 
-        stage('Monitoring & Alerting') {
-            steps {
-                script {
-                    def isReady = false
-                    def maxRetries = 5
+stage('Monitoring & Alerting') {
+    steps {
+        script {
+            def isReady = false
+            def maxRetries = 5
 
-                    for (int i = 0; i < maxRetries; i++) {
-                        def statusCode = sh(
-                            script: '''
-                                docker run --rm --network jenkins curlimages/curl:latest \
-                                curl -s -o /dev/null -w "%{http_code}" http://spam-detector-prod:5000/health || echo "fail"
-                            ''',
-                            returnStdout: true
-                        ).trim()
+            for (int i = 0; i < maxRetries; i++) {
+                def statusCode = sh(
+                    script: '''
+                        docker run --rm --network jenkins curlimages/curl:latest \
+                        curl -s -o /dev/null -w "%{http_code}" http://spam-detector-prod:5000/health || echo "fail"
+                    ''',
+                    returnStdout: true
+                ).trim()
 
-                        echo "Response: ${statusCode}"
+                echo "Response: ${statusCode}"
 
-                        if (statusCode == "200") {
-                            echo "✅ App is healthy (HTTP 200)"
-                            isReady = true
-                            break
-                        } else {
-                            echo "❌ App not ready (got '${statusCode}'), retrying (${i + 1}/${maxRetries})..."
-                            sleep time: 5, unit: 'SECONDS'
-                        }
+                if (statusCode == "200") {
+                    echo "✅ App is healthy (HTTP 200)"
+
+                    // Optional: check if /metrics endpoint is also responding for Prometheus
+                    def metricsStatus = sh(
+                        script: '''
+                            docker run --rm --network jenkins curlimages/curl:latest \
+                            curl -s -o /dev/null -w "%{http_code}" http://spam-detector-prod:5000/metrics || echo "fail"
+                        ''',
+                        returnStdout: true
+                    ).trim()
+
+                    if (metricsStatus == "200") {
+                        echo "📊 Prometheus metrics endpoint is available (HTTP 200)"
+                    } else {
+                        echo "⚠️ Prometheus metrics endpoint not responding (got '${metricsStatus}')"
                     }
 
-                    if (!isReady) {
-                        error("❌ ALERT: App not responding on /health after ${maxRetries} attempts.")
-                    }
+                    isReady = true
+                    break
+                } else {
+                    echo "❌ App not ready (got '${statusCode}'), retrying (${i + 1}/${maxRetries})..."
+                    sleep time: 5, unit: 'SECONDS'
                 }
             }
+
+            if (!isReady) {
+                // This error could be picked up by Prometheus if metrics or uptime probes are configured
+                error("❌ ALERT: App not responding on /health after ${maxRetries} attempts.")
+            }
         }
+    }
+}
+
 
         stage('List Docker Images') {
             steps {
